@@ -1,0 +1,9 @@
+### Message Create 
+POST http://localhost:5000/save
+
+{
+	"text": "Buy milk",
+}
+
+### Messages - get all
+POST http://localhost:5000
