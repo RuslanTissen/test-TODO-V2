@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ToDo from "./components/ToDo.js";
-import { getAllToDo, addToDo, updatedTodo } from "./components/utils/HandleApi.js";
+import { getAllToDo, addToDo, updatedTodo, deleteToDo } from "./components/utils/HandleApi.js";
 
 function App() {
 	const [toDo, setToDo] = useState([])
@@ -8,15 +8,18 @@ function App() {
 	const [update, setUpdate] = useState(false)
 	const [toDoId, setToDoId] = useState("")
 
+	useEffect(() => {
+		getAllToDo(setToDo)
+	}, [])
+
 	const updateMode = (_id, text) => {
 		setUpdate(true)
 		setText(text)
 		setToDoId(_id)
 	}
-
-	useEffect(() => {
-		getAllToDo(setToDo)
-	}, [])
+	// const deleteToDo =(_id, toDo) =>{
+	// 	setToDo(toDo)
+	// }
 
 	return (
 		<div className="App">
@@ -42,10 +45,12 @@ function App() {
 				</div>
 
 				<div className="list">
-					{toDo.map((item) => <ToDo 
-					key={item._id} 
-					text={item.text} 
-					updateMode={() => updateMode(item._id, item.text)}/>)}
+					{toDo.map((item) => <ToDo
+						key={item._id}
+						text={item.text}
+						updateMode={() => updateMode(item._id, item.text)}
+						deleteToDo={() => deleteToDo(item._id, setToDo)}
+					/>)}
 
 				</div>
 

@@ -19,19 +19,29 @@ const addToDo = (text, setText, setToDo) => {
 			setText("")
 			getAllToDo(setToDo)
 		})
-		.catch((err)=>console.log(err))
+		.catch((err) => console.log(err))
 
 }
 
-const updatedTodo = (toDoIt, text, setToDo, setText, setUpdate) => {
+const updatedTodo = (toDoId, text, setToDo, setText, setUpdate) => {
 	axios
-		.post(`${baseUrl}/update`, { id: toDoIt, text })
+		.put(`${baseUrl}/update`, { _id: toDoId, text })
 		.then((data) => {
 			setText("")
 			setUpdate(false)
 			getAllToDo(setToDo)
 		})
-		.catch((err)=>console.log(err))
+		.catch((err) => console.log(err))
 }
 
-export { getAllToDo, addToDo, updatedTodo }
+const deleteToDo = (_id, setToDo) => {
+	axios
+		.delete(`${baseUrl}/delete`, { _id })
+		.then((data) => {
+			console.log(data)
+			getAllToDo(setToDo)
+		})
+		.catch((err) => console.log(err))
+}
+
+export { getAllToDo, addToDo, updatedTodo, deleteToDo }
